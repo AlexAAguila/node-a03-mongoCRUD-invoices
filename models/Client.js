@@ -21,7 +21,7 @@ const clientSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { collection: "profiles" }
+  { collection: "clients" }
 );
 
 // create a model
