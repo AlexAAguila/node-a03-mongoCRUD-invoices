@@ -1,0 +1,33 @@
+<div>
+  <table class="table">
+    <tbody>
+      <% for (let i=0; i < products.length; i++) { %> <% if
+      (products[i].id===productId) { %>
+      <thead>
+        <tr>
+          <h3>Detail for Product: <%= products[i].name %></h3>
+        </tr>
+      </thead>
+      <tr>
+        <th scope="row">Product ID:</th>
+        <td><%= products[i].id %></td>
+      </tr>
+      <tr>
+        <th scope="row">Product Name:</th>
+        <td><%= products[i].name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Code:</th>
+        <td><%= products[i].code %></td>
+      </tr>
+      <tr>
+        <th scope="row">Unit Cost:</th>
+        <td>$<%= products[i].unitCost %></td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="<%= products[i].id %>/edit"
+    ><button class="btn btn-outline-info btn-sml">Update Product</button></a
+  >
+  <% } %> <% } %>
+</div>

@@ -1,0 +1,33 @@
+<div class="d-flex flex-column align-items-center">
+    <h3>Clients</h3>
+
+    <div id="search-bar">
+        <form action="/clients" method="get" class="w-100 mb-3">
+            <div class="input-group">
+                <input type="text" id="search-name" name="searchedName" placeholder="Enter client's name" class="form-control me-2"/>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+  
+    <div id="client-list" class="w-100 d-flex justify-content-center align-items-center flex-column">
+        <div>
+            <a href="/clients/create" class="btn btn-primary btn-sm" id="add-product-btn">Add a new Client</a>
+        </div>
+        <table class="table">
+            <tbody>
+                <% clients.forEach((client) => { %>
+                    <tr>
+                        <td><a href="/clients/<%= client.id %>" class="text-decoration-none"><%= client.name %></a></td>
+                        <td class="text-end">
+                            <a href="/clients/<%= client.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <%= message %>
+</div>

@@ -1,0 +1,36 @@
+<% if (customer) { if (message) { %>
+<p><%= message %></p>
+<% } %>
+<div>
+  <h2><%= customer.name %>'s details</h2>
+  <div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row">Client ID</th>
+          <td><%= customer.id %></td>
+        </tr>
+        <tr>
+          <th>Short Code</th>
+          <td><%= customer.code || 'N/A' %></td>
+        </tr>
+        <tr>
+          <th>Company</th>
+          <td><%= customer.company || 'N/A' %></td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td><%= customer.email || 'N/A' %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <p>
+      <a href="<%= customer._id %>/edit" class="btn btn-outline-info">Update</a>
+    </p>
+  </div>
+</div>
+<% } else { %>
+<p>No record found!</p>
+<% } %>

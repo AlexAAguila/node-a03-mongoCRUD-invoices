@@ -1,0 +1,25 @@
+<div class="d-flex flex-column align-items-center">
+  <h3>Products</h3>
+  <form action="/products" method="get">
+  <div class="input-group mb-3">
+    <input type="input" class="form-control" placeholder="Enter name.." aria-label="Recipient's username" aria-describedby="basic-addon2" name="searchedName">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+  </div>
+</form>
+
+    <a href="/products/create"
+      ><button class="btn btn-primary btn-sm" id="add-product-btn">Add a new Product</button></a
+    >
+  <table class="table">
+    <tbody>
+      <% for (let i = 0; i < products.length; i++ ) {%>
+          <tr>
+            <td><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/products/<%= products[i].id %>"><%= products[i].name %></a></td>
+            <td class="text-end"><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/products/<%= products[i].id %>/delete"><button type="button" class="btn btn-danger btn-sm">Delete</button></a</td>
+          </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
