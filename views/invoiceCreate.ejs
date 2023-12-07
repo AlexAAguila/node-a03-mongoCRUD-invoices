@@ -1,0 +1,33 @@
+<p><%= errorMessage %></p>
+<div>
+  <h3>New Product</h3>
+  <form action="/products/create" method="POST">
+    <div class="form-group">
+      <label for="product">Product:</label>
+      <select name="product" id="product" required>
+      <% products.forEach(function(product) { %>
+          <option value="<%= product._id %>"><%= product.name %></option>
+      <% }); %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="code">Code:</label>
+      <input class="form-control" id="code" name="code" type="text" required
+      value=<%= product.code ? product.code : '' %> >
+    </div>
+    <div class="form-group">
+      <label for="unitCost">Unit Cost:</label>
+      <input class="form-control" id="unitCost" name="unitCost" type="text"
+      required value=<%= product.unitCost ? product.unitCost : '' %> >
+    </div>
+    <button
+      id="submit-btn"
+      class="btn btn-primary"
+      type="submit"
+      value="Submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+
