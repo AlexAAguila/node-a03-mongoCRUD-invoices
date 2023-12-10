@@ -29,6 +29,29 @@ class InvoiceRepo {
     }
   }
 
+  async createInvoice(data) {
+    try {
+      const newInvoice = new Invoice(data);
+      const savedInvoice = await newInvoice.save();
+      return savedInvoice;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async fetchInvoiceById(id) {
+    try {
+      const invoice = await Invoice.findById(id)
+        .populate("client") // Populate the 'client' field with client details
+        .populate("products") // Populate the 'products' array with product details
+        .exec();
+
+      return invoice;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
   // Your function to fetch data (example: findOne)
   async fetchData(id) {
     try {

@@ -15,6 +15,7 @@ const contributors = packageReader.getContributors();
 invoicesRouter.get("/", InvoiceController.Index);
 // Get route for invoice create form
 invoicesRouter.get("/create", InvoiceController.Create);
+invoicesRouter.post("/create", InvoiceController.createInvoice);
 
 const Invoices = require("../models/Invoice.js"); // Your Mongoose model
 
