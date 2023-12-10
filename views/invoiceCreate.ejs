@@ -1,25 +1,63 @@
 <p><%= errorMessage %></p>
 <div>
-  <h3>New Product</h3>
-  <form action="/products/create" method="POST">
+  <h3>New Invoice</h3>
+  <form action="/invoices/create" method="POST">
     <div class="form-group">
-      <label for="product">Product:</label>
-      <select name="product" id="product" required>
-      <% products.forEach(function(product) { %>
-          <option value="<%= product._id %>"><%= product.name %></option>
-      <% }); %>
+      <label for="client">Customer:</label>
+      <select class="form-control" id="client" name="client" required>
+        <option value="">Select a client</option>
+        <% clients.forEach(client => { %>
+        <option value="<%= client._id %>"><%= client.name %></option>
+        <% }); %>
       </select>
     </div>
     <div class="form-group">
-      <label for="code">Code:</label>
-      <input class="form-control" id="code" name="code" type="text" required
-      value=<%= product.code ? product.code : '' %> >
+      <label for="invoiceNumber">Invoice Number: </label>
+      <input class="form-control" id="invoiceNumber" name="invoiceNumber"
+      type="number" required value=<%= invoice.invoiceNumber ?
+      invoice.invoiceNumber : '' %> >
     </div>
     <div class="form-group">
-      <label for="unitCost">Unit Cost:</label>
-      <input class="form-control" id="unitCost" name="unitCost" type="text"
-      required value=<%= product.unitCost ? product.unitCost : '' %> >
+      <label for="issueDate">Issue Date: </label>
+      <input class="form-control" id="issueDate" name="issueDate" type="Date"
+      required value=<%= invoice.issueDate ? invoice.issueDate : '' %> >
     </div>
+    <div class="form-group">
+      <label for="dueDate">Due Date: </label>
+      <input class="form-control" id="dueDate" name="dueDate" type="Date"
+      required value=<%= invoice.dueDate ? invoice.dueDate : '' %> >
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="products">Product:</label>
+        <select class="form-control" id="products" name="products" required>
+          <option value="">Select a product</option>
+          <% products.forEach(product => { %>
+          <option
+            value="<%= product._id %>"
+            data-quantity="<%= product.quantity %>"
+          >
+            <%= product.name %>
+          </option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="col">
+        <label for="quantity">Quantity:</label>
+        <input
+          class="form-control"
+          name="lineItems[0][quantity]"
+          type="number"
+          required
+          value="1"
+        />
+        <span id="productQuantityInfo" style="display: none"></span>
+      </div>
+    </div>
+
+    <button type="button" id="add-item-btn" onclick="addLineItem()">
+      Add Line Item
+    </button>
     <button
       id="submit-btn"
       class="btn btn-primary"
@@ -28,6 +66,33 @@
     >
       Submit
     </button>
+
+    <a href="/invoices/" id="cancel-btn" class="btn btn-danger">Cancel</a>
   </form>
 </div>
 
+<script>
+  function addLineItem() {
+    // Clone the last line item container
+    let lastRow = document.querySelector(".row:last-of-type");
+    let newRow = lastRow.cloneNode(true);
+
+    // Reset the values in the cloned line item
+    let inputs = newRow.querySelectorAll("input, select");
+    inputs.forEach(function (input) {
+      input.value = "";
+    });
+
+    // Increment the index in the name attribute for quantity input
+    let index = document.querySelectorAll(".row").length;
+    let quantityInput = newRow.querySelector('input[name^="lineItems"]');
+    let newName = quantityInput
+      .getAttribute("name")
+      .replace(/\[\d+\]/g, "[" + index + "]");
+    quantityInput.setAttribute("name", newName);
+
+    // Insert the new line item before the submit button
+    var form = document.querySelector("form");
+    form.insertBefore(newRow, document.querySelector("#add-item-btn"));
+  }
+</script>
