@@ -36,3 +36,24 @@ exports.Index = async function (request, response) {
     });
   }
 };
+
+// Handle product form GET request
+exports.Create = async function (request, response) {
+  try {
+    // Fetch clients and products from the repository
+    const clients = await _invoiceRepo.getAllClients();
+    const products = await _invoiceRepo.getAllProducts();
+    const invoice = {};
+
+    response.render("invoiceCreate", {
+      title: "Create an Invoice",
+      errorMessage: "",
+      clients: clients,
+      products: products,
+      invoice: invoice,
+      contributors: contributors,
+    });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+};

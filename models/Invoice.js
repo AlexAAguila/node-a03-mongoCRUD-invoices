@@ -1,15 +1,15 @@
-"use strict"
+"use strict";
 const mongoose = require("mongoose");
 
-const invoiceSchema = mongoose.Schema(
+const invoiceSchema = new mongoose.Schema(
   {
     client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Client",
-      required: true,
     },
+
     invoiceNumber: {
-      type: String,
+      type: Number,
       required: true,
     },
     issueDate: {
@@ -20,14 +20,14 @@ const invoiceSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
-    products: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    }],
+    products: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   { collection: "invoice" }
 );
-
 const Invoice = mongoose.model("Invoice", invoiceSchema);
-
 module.exports = Invoice;

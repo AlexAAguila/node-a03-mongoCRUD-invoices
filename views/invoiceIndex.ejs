@@ -1,32 +1,56 @@
 <div class="d-flex flex-column align-items-center">
-    <h3>Invoice</h3>
+  <h3>Invoice</h3>
 
-    <div id="search-bar">
-        <form action="/invoice" method="get" class="w-100 mb-3">
-            <div class="input-group">
-                <input type="text" id="search-name" name="searchedName" placeholder="Enter invoice" class="form-control me-2"/>
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-outline-secondary">Search</button>
-                </div>
-            </div>
-        </form>
-    </div>
-  
-    <div id="invoice-list" class="w-100 d-flex justify-content-center align-items-center flex-column">
-        <div>
-            <a href="/invoice/create" class="btn btn-primary btn-sm" id="add-product-btn">Add a new Invoice</a>
+  <div id="search-bar">
+    <form action="/invoices" method="get" class="w-100 mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          id="search-name"
+          name="searchedName"
+          placeholder="Enter invoice"
+          class="form-control me-2"
+        />
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-outline-secondary">
+            Search
+          </button>
         </div>
-        <table class="table">
-            <tbody>
-                <% invoices.forEach((invoice) => { %>
-                    <tr>
-                        <td><a href="/invoices/<%= invoice.id %>" class="text-decoration-none"><%= invoice.id %></a></td>
-                        <td class="text-end">
-                            <a href="/invoices/<%= invoice.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
+      </div>
+    </form>
+  </div>
+
+  <div
+    id="invoice-list"
+    class="w-100 d-flex justify-content-center align-items-center flex-column"
+  >
+    <div>
+      <a
+        href="/invoices/create"
+        class="btn btn-primary btn-sm"
+        id="add-product-btn"
+        >Add a new Invoice</a
+      >
     </div>
+    <table class="table">
+      <tbody>
+        <% invoices.forEach((invoice) => { %>
+        <tr>
+          <td>
+            <a href="/invoices/<%= invoice.id %>" class="text-decoration-none"
+              ><%= invoice.id %></a
+            >
+          </td>
+          <td class="text-end">
+            <a
+              href="/invoices/<%= invoice.id %>/delete"
+              class="btn btn-danger btn-sm"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
 </div>
