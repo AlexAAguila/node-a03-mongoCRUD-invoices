@@ -37,23 +37,41 @@ exports.Index = async function (request, response) {
   }
 };
 
-// Handle product form GET request
-exports.Create = async function (request, response) {
+exports.Create = async function (req, res) {
   try {
-    // Fetch clients and products from the repository
     const clients = await _invoiceRepo.getAllClients();
     const products = await _invoiceRepo.getAllProducts();
-    const invoice = {};
-
-    response.render("invoiceCreate", {
-      title: "Create an Invoice",
-      errorMessage: "",
+    res.render("invoiceCreate", {
+      title: "Express Billing - Create Invoice",
       clients: clients,
       products: products,
-      invoice: invoice,
+      invoice: {},
       contributors: contributors,
     });
   } catch (error) {
-    response.status(500).json({ error: error.message });
+    res.render("error", {
+      message: "Error fetching clients or products",
+      error,
+    });
+  }
+};
+
+exports.createInvoice = async function (req, res) {
+  try {
+    const { client, invoiceNumber, issueDate, dueDate, products } = req.body;
+
+    const newInvoiceData = {
+      client: client,
+      invoiceNumber: invoiceNumber,
+      issueDate: issueDate,
+      dueDate: dueDate,
+      products: products,
+    };
+
+    const createdInvoice = await _invoiceRepo.createInvoice(newInvoiceData);
+
+    res.redirect("/invoices/"); // Redirect to the invoice index page
+  } catch (error) {
+    res.render("error", { message: "Error creating invoice", error });
   }
 };
