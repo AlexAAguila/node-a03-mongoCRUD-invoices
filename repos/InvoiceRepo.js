@@ -6,10 +6,14 @@ class InvoiceRepo {
   ProductRepo() {}
 
   async getAllInvoices() {
-    let invoices = await Invoice.find({});
-    invoices.sort((a, b) => a.name.localeCompare(b.name));
-    return invoices;
+    try {
+      const invoices = await Invoice.find({}).sort({name:1});
+      return invoices;
+    } catch (error) {
+      throw new Error('Error fetching invoices: ' + error.message);
+    }
   }
+  
 
   async getAllClients() {
     try {
