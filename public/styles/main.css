@@ -50,3 +50,66 @@ main{
   width: 8rem;
 }
 
+
+
+#company-info > p {
+    display: inline-block;
+}
+.upper-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 50px;
+
+}
+
+.logo{
+    width: 100px;
+    padding-bottom: 10px;
+}
+/*Body*/
+
+.borderbox{
+    border-style: solid;
+        display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+}
+.mid-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.title{
+    font-weight: bold;
+    font-size: small;
+}
+
+.align-left{
+    text-align: left;
+}
+.align-right{
+    text-align: right;
+}
+.align-center{
+    
+    text-align: center;
+}
+/* Price section*/
+#price-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 50px;
+}
+
+
+/*Bottom */
+.bottom-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 50px;}
