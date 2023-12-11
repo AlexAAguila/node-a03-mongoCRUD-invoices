@@ -33,12 +33,17 @@
       >
     </div>
     <table class="table">
+      <thead>
+        <tr>
+          <th class="text-start">Invoice Number #:</th>
+        </tr>
+      </thead>
       <tbody>
         <% invoices.forEach((invoice) => { %>
         <tr>
           <td>
             <a href="/invoices/<%= invoice.id %>" class="text-decoration-none"
-              ><%= invoice.id %></a
+              ><%= invoice.invoiceNumber %></a
             >
           </td>
           <td class="text-end">
