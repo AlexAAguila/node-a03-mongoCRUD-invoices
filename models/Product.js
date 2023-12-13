@@ -16,6 +16,11 @@ const productSchema = mongoose.Schema(
       type: mongoose.Schema.Types.Decimal128,
       required: true,
     },
+    quantity: {
+      type: Number,
+      required: true,
+      default: 1
+    },
   },
   { collection: "products" }
 );

@@ -7,7 +7,7 @@ class InvoiceRepo {
 
   async getAllInvoices() {
     try {
-      const invoices = await Invoice.find({}).sort({name:1});
+      const invoices = await Invoice.find({}).sort({invoiceNumber:1});
       return invoices;
     } catch (error) {
       throw new Error('Error fetching invoices: ' + error.message);
@@ -36,7 +36,9 @@ class InvoiceRepo {
   async createInvoice(data) {
     try {
       const newInvoice = new Invoice(data);
+      console.log("newInvoice")
       const savedInvoice = await newInvoice.save();
+      console.log("Saved")
       return savedInvoice;
     } catch (error) {
       throw new Error(error.message);

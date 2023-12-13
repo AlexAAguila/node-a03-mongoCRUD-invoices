@@ -26,6 +26,16 @@ const invoiceSchema = new mongoose.Schema(
         ref: "Product",
       },
     ],
+    quantities: [
+      {
+        type: Number,
+        required: false
+      }
+    ],
+    totalDue: {
+      type: mongoose.Schema.Types.Decimal128,
+      required: false
+    }
   },
   { collection: "invoice" }
 );

@@ -17,6 +17,11 @@ invoicesRouter.get("/", InvoiceController.Index);
 invoicesRouter.get("/create", InvoiceController.Create);
 invoicesRouter.post("/create", InvoiceController.createInvoice);
 
+// show individual product details
+invoicesRouter.get("/:id", InvoiceController.Detail);
+
+//productsRouter.get("/:id/delete", ProductController.DeleteProductById);
+
 const Invoices = require("../models/Invoice.js"); // Your Mongoose model
 
 invoicesRouter.get("/dropdown", async (req, res) => {
