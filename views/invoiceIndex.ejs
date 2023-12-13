@@ -1,3 +1,6 @@
+<% function formatDate(date) { const options = { month: 'short', day: 'numeric',
+year: 'numeric' }; return date.toLocaleString('en-CA', options); } %>
+
 <div class="d-flex flex-column align-items-center">
   <h3>Invoice</h3>
 
@@ -36,6 +39,8 @@
       <thead>
         <tr>
           <th class="text-start">Invoice Number #:</th>
+          <th>Client Name</th>
+          <th>Issue Date</th>
         </tr>
       </thead>
       <tbody>
@@ -46,6 +51,8 @@
               ><%= invoice.invoiceNumber %></a
             >
           </td>
+          <td><%= invoice.client.name %></td>
+          <td><%= formatDate(invoice.issueDate) %></td>
           <td class="text-end">
             <a
               href="/invoices/<%= invoice.id %>/delete"
