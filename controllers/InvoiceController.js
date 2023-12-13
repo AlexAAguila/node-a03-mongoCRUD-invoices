@@ -70,18 +70,11 @@ exports.createInvoice = async function (req, res) {
       console.log(req.body);
       const quantityKey = `lineItems[${i}].quantity`;
       const quantity = req.body[quantityKey];
-      console.log(quantity); // Array containing all lineItems' quantities
-      console.log(products); // Array containing all lineItems' quantities
-
-      let product = _productRepo.getProductById(products[i]);
-      console.log(product); // Array containing all lineItems' quantities
-      totalDue += (quantity * product.unitCost)
-      console.log(totalDue); // Array containing all lineItems' quantities
+ 
       if (quantity) {
         quantities.push(quantity);
       }
     }
-    console.log(`totalDue: ${totalDue}`); // Array containing all lineItems' quantities
 
     const newInvoiceData = {
       client: client,
@@ -89,7 +82,6 @@ exports.createInvoice = async function (req, res) {
       issueDate: issueDate,
       dueDate: dueDate,
       products: products,
-      totalDue: totalDue,
       quantities: quantities
     };
     

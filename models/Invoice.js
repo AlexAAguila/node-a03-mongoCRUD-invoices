@@ -32,10 +32,7 @@ const invoiceSchema = new mongoose.Schema(
         required: false
       }
     ],
-    totalDue: {
-      type: mongoose.Schema.Types.Decimal128,
-      required: false
-    }
+
   },
   { collection: "invoice" }
 );
