@@ -38,23 +38,31 @@
            <div id="price-container">
             <div id="items" >
                 <div class="title align-left">ITEM</div>
-                <div>Computer Tech: Monitor</div>
-                <div>Computer Tech: Mouse</div>
+                <% for (let i=0; i < invoice.products.length; i++) { %> 
+                <div><%=invoice.products[i].name%></div>               
+                <%} %>
             </div>
             <div id="qty" class="align-center">
               <div class="title" >QTY</div>
-              <div >1</div>
-              <div >1</div>
+              <% for (let i=0; i < invoice.products.length; i++) { %> 
+                <div><%=invoice.quantities[i]%></div>               
+                <%} %>
             </div>
             <div id="rate" class="align-center">
               <div class="title">RATE</div>
-              <div>200.00</div>
-              <div >70.00</div>
+              <% for (let i=0; i < invoice.products.length; i++) { %> 
+                <div><%=invoice.products[i].unitCost%></div>               
+                <%} %>
             </div>
             <div id="amount" class="align-right">
               <div class="title">AMOUNT</div>
-              <div>200.00</div>
-              <div>70.00</div>
+              <% let amountTotal = 0 %>
+              <% let grandTotal = 0 %>
+              <% for (let i=0; i < invoice.products.length; i++) { %> 
+                <% amountTotal = invoice.products[i].unitCost * invoice.quantities[i]%>
+                <% grandTotal += amountTotal %>
+                <div><%= amountTotal %></div>               
+                <%} %>
             </div>
            </div>
       
@@ -66,7 +74,7 @@
 
       <div>
         <div>Total Due</div>
-        <div>CAD 270.00</div>
+        <div><%= grandTotal %></div>
         </div>
       </div>
 
