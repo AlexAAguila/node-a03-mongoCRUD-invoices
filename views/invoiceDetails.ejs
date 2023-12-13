@@ -1,80 +1,85 @@
-<div class="upper-container">
-    <div id="company-info">
-      <img src="../images/logo.png" alt="logo for invoice" class="logo">
-   <p>  AguilarCo.<br>
-   123 Eagle Street<br>
-    Suite 101<br>
-    AguilaVille, BC<br>
-    A1A 1A1<br>
-    alex@aguilarcompany.com</p> 
+<% function formatDate(date) { const options = { day: '2-digit', month:
+'2-digit', year: 'numeric' }; return date.toLocaleDateString('en-CA', options);
+} let grandTotal = 0; %> <% for (let i=0; i < invoice.products.length; i++) { %>
+<% grandTotal += invoice.products[i].unitCost * invoice.quantities[i] %> <% } %>
+
+<div>
+  <div class="upper-container">
+    <div id="logo-info">
+      <img src="../images/logo.png" alt="logo for invoice" class="logo" />
+      <div id="company-info">
+        <p>AguilarCo.</p>
+        <p>123 Eagle Street</p>
+        <p>Suite 101</p>
+        <p>AguilaVille, BC</p>
+        <p>A1A 1A1</p>
+        <p>alex@aguilarcompany.com</p>
+      </div>
+    </div>
+    <div>Invoice <%= invoice.invoiceNumber %></div>
+  </div>
+  <div class="mid-container">
+    <section>
+      <div class="title">BILL TO:</div>
+      <div><%= invoice.client.name %></div>
+      <div><%= invoice.client.company %></div>
+      <div><%= invoice.client.email %></div>
+    </section>
+
+    <section class="mid-container">
+      <div class="borderbox">
+        <div class="title">Date</div>
+        <div><%= formatDate(invoice.issueDate) %></div>
+      </div>
+
+      <div class="borderbox">
+        <div class="title">Amount Due</div>
+        <div>$<%= grandTotal.toFixed(2) %></div>
+      </div>
+
+      <div class="borderbox">
+        <div class="title">Due Date</div>
+        <div><%= formatDate(invoice.dueDate) %></div>
+      </div>
+    </section>
+  </div>
+  <div id="price-container">
+    <div id="items">
+      <div class="title align-left">ITEM</div>
+      <% for (let i=0; i < invoice.products.length; i++) { %>
+      <div><%=invoice.products[i].name%></div>
+      <%} %>
+    </div>
+    <div id="qty" class="align-center">
+      <div class="title">QTY</div>
+      <% for (let i=0; i < invoice.products.length; i++) { %>
+      <div><%=invoice.quantities[i]%></div>
+      <%} %>
+    </div>
+    <div id="rate" class="align-center">
+      <div class="title">RATE</div>
+      <% for (let i=0; i < invoice.products.length; i++) { %>
+      <div>$<%=invoice.products[i].unitCost%></div>
+      <%} %>
+    </div>
+    <div id="amount" class="align-right">
+      <div class="title">AMOUNT</div>
+      <% for (let i=0; i < invoice.products.length; i++) { %> <% let amountTotal
+      = invoice.products[i].unitCost * invoice.quantities[i]%>
+      <div>$<%= amountTotal.toFixed(2) %></div>
+      <%} %>
+    </div>
   </div>
 
-      <div>Invoice <%= invoice.invoiceNumber %></div>
+  <div class="bottom-container">
+    <section>
+      <div>Please remit payment via Interac E-Transfer to</div>
+      <div>bob@ross-bobross.com</div>
+    </section>
+
+    <div>
+      <div>Total Due</div>
+      <div>$<%= grandTotal %></div>
     </div>
-      <div class="mid-container"> 
-        <section>
-          <div class="title">BILL TO:</div>
-          <div><%= invoice.client.name %></div>
-          <div><%= invoice.client.company %></div>
-          <div><%= invoice.client.email %></div>
-        </section>
-
-        <section class="mid-container">
-        <div class="borderbox">       
-          <div class="title"> Date</div>
-        <div><%= invoice.issueDate %></div>
-      </div>
-      
-      <div class="borderbox">       
-        <div class="title">Amount Due</div>
-        <div> 850.45</div>
-      </div>
-        
-<div class="borderbox">       
-  <div class="title"> Due Date</div>
-<div> <%= invoice.dueDate %></div>
-</section>
+  </div>
 </div>
-           <div id="price-container">
-            <div id="items" >
-                <div class="title align-left">ITEM</div>
-                <% for (let i=0; i < invoice.products.length; i++) { %> 
-                <div><%=invoice.products[i].name%></div>               
-                <%} %>
-            </div>
-            <div id="qty" class="align-center">
-              <div class="title" >QTY</div>
-              <% for (let i=0; i < invoice.products.length; i++) { %> 
-                <div><%=invoice.quantities[i]%></div>               
-                <%} %>
-            </div>
-            <div id="rate" class="align-center">
-              <div class="title">RATE</div>
-              <% for (let i=0; i < invoice.products.length; i++) { %> 
-                <div><%=invoice.products[i].unitCost%></div>               
-                <%} %>
-            </div>
-            <div id="amount" class="align-right">
-              <div class="title">AMOUNT</div>
-              <% let amountTotal = 0 %>
-              <% let grandTotal = 0 %>
-              <% for (let i=0; i < invoice.products.length; i++) { %> 
-                <% amountTotal = invoice.products[i].unitCost * invoice.quantities[i]%>
-                <% grandTotal += amountTotal %>
-                <div><%= amountTotal %></div>               
-                <%} %>
-            </div>
-           </div>
-      
-      <div class="bottom-container">
-      <section>
-        <div>Please remit payment via Interac E-Transfer to</div>
-        <div>bob@ross-bobross.com</div>
-      </section>
-
-      <div>
-        <div>Total Due</div>
-        <div><%= grandTotal %></div>
-        </div>
-      </div>
-

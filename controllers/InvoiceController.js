@@ -4,7 +4,7 @@ const InvoiceRepo = require("../repos/InvoiceRepo");
 
 const _invoiceRepo = new InvoiceRepo();
 
-const _productRepo = require("../repos/ProductRepo")
+const _productRepo = require("../repos/ProductRepo");
 
 // Import packageReader and get contributors
 const packageReader = require("../packageReader");
@@ -55,7 +55,7 @@ exports.Create = async function (req, res) {
       title: "Error Fetching Invoice",
       message: "Error fetching clients or products",
       error,
-      contributors: contributors
+      contributors: contributors,
     });
   }
 };
@@ -63,14 +63,13 @@ exports.Create = async function (req, res) {
 exports.createInvoice = async function (req, res) {
   try {
     const { client, invoiceNumber, issueDate, dueDate, products } = req.body;
-    
-    let totalDue = 0;
+
     let quantities = [];
-    for(i = 0; i< products.length; i++){
+    for (i = 0; i < products.length; i++) {
       console.log(req.body);
       const quantityKey = `lineItems[${i}].quantity`;
       const quantity = req.body[quantityKey];
- 
+
       if (quantity) {
         quantities.push(quantity);
       }
@@ -82,9 +81,9 @@ exports.createInvoice = async function (req, res) {
       issueDate: issueDate,
       dueDate: dueDate,
       products: products,
-      quantities: quantities
+      quantities: quantities,
     };
-    
+
     const createdInvoice = await _invoiceRepo.createInvoice(newInvoiceData);
 
     res.redirect("/invoices/"); // Redirect to the invoice index page
@@ -93,11 +92,10 @@ exports.createInvoice = async function (req, res) {
       title: "Error Creating Invoice",
       message: "Error fetching clients or products",
       error,
-      contributors: contributors
+      contributors: contributors,
     });
   }
 };
-
 
 exports.Detail = async function (request, response) {
   const invoiceId = request.params.id;
@@ -108,7 +106,7 @@ exports.Detail = async function (request, response) {
     response.render("invoiceDetails", {
       title: "Express Billing - " + invoice.invoiceNumber,
       invoice: invoice,
-      layout: "./layouts/full-width",
+      layout: "./layouts/invoice",
       contributors: contributors,
     });
   } else {
@@ -118,7 +116,7 @@ exports.Detail = async function (request, response) {
       title: "Error Creating Invoice",
       message: "Error fetching clients or products",
       error,
-      contributors: contributors
+      contributors: contributors,
     });
   }
 };

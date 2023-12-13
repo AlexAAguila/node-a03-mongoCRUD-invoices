@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 const mongoose = require("mongoose");
 
@@ -13,13 +13,14 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     unitCost: {
-      type: mongoose.Schema.Types.Decimal128,
+      type: Number,
+      set: (value) => parseFloat(value.toFixed(2)),
       required: true,
     },
     quantity: {
       type: Number,
       required: true,
-      default: 1
+      default: 1,
     },
   },
   { collection: "products" }
