@@ -122,3 +122,23 @@ exports.Detail = async function (request, response) {
     });
   }
 };
+
+// Handle product form delete request
+exports.DeleteInvoiceById = async function (req, res) {
+  const invoiceId = req.params.id;
+  let deletedProduct = await _invoiceRepo.deleteProductById(invoiceId);
+  let invoices = await _invoiceRepo.getAllInvoices();
+
+  if (deletedProduct) {
+    // if delete is successful go to invoice page
+    res.redirect("/invoices/"); // Redirect to the invoice index page
+  } else {
+    // else render productIndex page
+    res.render("invoiceIndex", {
+      title: "Express Billing - Invoice",
+      invoices: invoices,
+      contributors: contributors,
+    });
+  }
+};
+
