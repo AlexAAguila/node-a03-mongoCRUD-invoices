@@ -36,13 +36,18 @@ class InvoiceRepo {
   async createInvoice(data) {
     try {
       const newInvoice = new Invoice(data);
-      console.log("newInvoice")
       const savedInvoice = await newInvoice.save();
-      console.log("Saved")
       return savedInvoice;
     } catch (error) {
       throw new Error(error.message);
     }
+  }
+
+  async deleteProductById(id) {
+    console.log(`deleting invoice by id ${id}`);
+    let result = await Invoice.findByIdAndDelete(id);
+    console.log(result);
+    return result;
   }
 
   async fetchInvoiceById(id) {
