@@ -28,6 +28,7 @@ class InvoiceRepo {
   async getAllProducts() {
     try {
       const products = await Product.find({}); // Adjust this query based on your actual model
+      console.log(products);
       return products;
     } catch (error) {
       throw new Error(error.message);
@@ -75,6 +76,27 @@ class InvoiceRepo {
       throw new Error(error.message);
     }
   }
+
+ // Inside the repo file
+async getInvoicebyId(searchedId) {
+  console.log(`finding search term ${searchedId} for invoiceNumber field in the database`);
+  try {
+    const parsedId = isNaN(searchedId) ? searchedId : parseInt(searchedId);
+    const invoices = await Invoice.find({
+      invoiceNumber: isNaN(parsedId) ? { $regex: searchedId, $options: "i" } : parsedId,
+    })
+    .populate("client");
+    console.log(`search successful!`);
+    console.log(invoices);
+    return invoices;
+  } catch (error) {
+    console.error("error resolving search", error.message);
+    return false;
+  }
 }
+
+}
+
+
 
 module.exports = InvoiceRepo;

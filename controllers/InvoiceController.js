@@ -4,14 +4,13 @@ const InvoiceRepo = require("../repos/InvoiceRepo");
 
 const _invoiceRepo = new InvoiceRepo();
 
-const _productRepo = require("../repos/ProductRepo");
 
 // Import packageReader and get contributors
 const packageReader = require("../packageReader");
 const contributors = packageReader.getContributors();
 
 exports.Index = async function (request, response) {
-  let invoices = await _invoiceRepo.getAllInvoices();
+  // let invoices = await _invoiceRepo.getAllInvoices();
   // check for any query parameters
   const { searchedName } = request.query;
   let clients = await _invoiceRepo.getAllClients();
@@ -19,7 +18,7 @@ exports.Index = async function (request, response) {
   if (searchedName) {
     console.log("fetching data for search term from controller");
     // get results for this search param from repo
-    invoices = await _invoiceRepo.getInvoicebyName(searchedName);
+    invoices = await _invoiceRepo.getInvoicebyId(searchedName);
   } else {
     console.log("fetching all clients data from controller");
     // get all products from repo
@@ -68,7 +67,6 @@ exports.createInvoice = async function (req, res) {
 
     let quantities = [];
     for (i = 0; i < products.length; i++) {
-      console.log(req.body);
       const quantityKey = `lineItems[${i}].quantity`;
       const quantity = req.body[quantityKey];
 
@@ -90,6 +88,7 @@ exports.createInvoice = async function (req, res) {
 
     res.redirect("/invoices/"); // Redirect to the invoice index page
   } catch (error) {
+   
     res.render("404", {
       title: "Error Creating Invoice",
       message: "Error fetching clients or products",
