@@ -11,6 +11,7 @@ const invoiceSchema = new mongoose.Schema(
     invoiceNumber: {
       type: Number,
       required: true,
+      unique: true,
     },
     issueDate: {
       type: Date,
@@ -29,10 +30,9 @@ const invoiceSchema = new mongoose.Schema(
     quantities: [
       {
         type: Number,
-        required: false
-      }
+        required: false,
+      },
     ],
-
   },
   { collection: "invoice" }
 );
