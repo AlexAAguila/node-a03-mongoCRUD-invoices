@@ -7,13 +7,14 @@ class InvoiceRepo {
 
   async getAllInvoices() {
     try {
-      const invoices = await Invoice.find({}).sort({invoiceNumber:1});
+      const invoices = await Invoice.find({})
+        .populate("client")
+        .sort({ invoiceNumber: 1 });
       return invoices;
     } catch (error) {
-      throw new Error('Error fetching invoices: ' + error.message);
+      throw new Error("Error fetching invoices: " + error.message);
     }
   }
-  
 
   async getAllClients() {
     try {

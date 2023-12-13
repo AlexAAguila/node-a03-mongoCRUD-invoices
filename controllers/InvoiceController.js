@@ -14,6 +14,7 @@ exports.Index = async function (request, response) {
   let invoices = await _invoiceRepo.getAllInvoices();
   // check for any query parameters
   const { searchedName } = request.query;
+  let clients = await _invoiceRepo.getAllClients();
   // if there is a query parameter
   if (searchedName) {
     console.log("fetching data for search term from controller");
@@ -28,6 +29,7 @@ exports.Index = async function (request, response) {
     response.render("invoiceIndex", {
       title: "Express Billing - Invoice",
       invoices: invoices,
+      clients: clients,
       contributors: contributors,
     });
   } else {
@@ -139,4 +141,3 @@ exports.DeleteInvoiceById = async function (req, res) {
     });
   }
 };
-
