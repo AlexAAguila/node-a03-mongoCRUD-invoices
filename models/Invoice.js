@@ -33,6 +33,11 @@ const invoiceSchema = new mongoose.Schema(
         required: false,
       },
     ],
+    paid: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
   },
   { collection: "invoice" }
 );

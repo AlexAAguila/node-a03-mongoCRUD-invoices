@@ -27,6 +27,8 @@ year: 'numeric' }; return date.toLocaleString('en-CA', options); } %>
     id="invoice-list"
     class="w-100 d-flex justify-content-center align-items-center flex-column"
   >
+  <% if
+      (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
     <div>
       <a
         href="/invoices/create"
@@ -35,12 +37,15 @@ year: 'numeric' }; return date.toLocaleString('en-CA', options); } %>
         >Add a new Invoice</a
       >
     </div>
+    <% } %>
+
     <table class="table">
       <thead>
         <tr>
           <th class="text-start">Invoice Number #:</th>
           <th>Client Name</th>
           <th>Issue Date</th>
+          <th>Paid</th>
         </tr>
       </thead>
       <tbody>
@@ -51,8 +56,17 @@ year: 'numeric' }; return date.toLocaleString('en-CA', options); } %>
               ><%= invoice.invoiceNumber %></a
             >
           </td>
-          <td><%= invoice.client.name %></td>
+          <td><%= invoice.client.firstName %> <%= invoice.client.lastName %></td>
           <td><%= formatDate(invoice.issueDate) %></td>
+          <td>
+            <%if (invoice.paid){ %>
+              Paid
+              <% } else { %>
+                Not paid
+                <% } %> 
+          </td>
+          <% if
+      (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
           <td class="text-end">
             <a
               href="/invoices/<%= invoice.id %>/delete"
@@ -60,6 +74,7 @@ year: 'numeric' }; return date.toLocaleString('en-CA', options); } %>
               >Delete</a
             >
           </td>
+            <% } %>
         </tr>
         <% }); %>
       </tbody>

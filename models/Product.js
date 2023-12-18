@@ -14,14 +14,14 @@ const productSchema = mongoose.Schema(
     },
     unitCost: {
       type: Number,
-      set: (value) => parseFloat(value.toFixed(2)),
+      //set: (value) => parseFloat(value.toFixed(2)),
       required: true,
     },
-    quantity: {
-      type: Number,
-      required: true,
-      default: 1,
-    },
+    // quantity: {
+    //   type: Number,
+    //   required: true,
+    //   default: 1,
+    // },
   },
   { collection: "products" }
 );

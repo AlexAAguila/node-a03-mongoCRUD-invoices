@@ -1,6 +1,23 @@
 <nav class="nav d-flex justify-content-center mt-3 mb-4" id="nav-bar">
   <a class="nav-link" href="/">Home</a>
-  <a class="nav-link" href="/clients">Clients</a>
-  <a class="nav-link" href="/products">Products</a>
-  <a class="nav-link" href="/invoices">Invoices</a>
+  
+
+  <%if (reqInfo.authenticated) { %>
+      <a class="nav-link" href="/user/profile">My Profile </a>
+      <% if (reqInfo.roles.includes("Admin")) { %>
+        <a class="nav-link" href="/products">Products</a>
+       <% } %> <% if
+      (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) {
+      %> <a class="nav-link" href="/clients">Clients</a>  
+       <% } %> 
+      <a class="nav-link" href="/invoices">Invoices</a>
+  
+
+  <a class="nav-link" href="/user/logout">Logout</a> [<%= reqInfo.username %>]
+
+  <% } else { %>
+    <a class="nav-link" href="/user/register">Register</a> 
+    <a class="nav-link" href="/user/login">Login</a>
+    <% } %>
+
 </nav>

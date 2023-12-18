@@ -2,6 +2,9 @@ const Product = require("../models/Product");
 
 const ProductRepo = require("../repos/ProductRepo");
 
+const RequestService = require("../services/RequestService");
+
+
 const _productRepo = new ProductRepo();
 
 // Import packageReader and get contributors
@@ -9,7 +12,9 @@ const packageReader = require("../packageReader");
 const contributors = packageReader.getContributors();
 
 exports.Index = async function (request, response) {
-  let products = await _productRepo.getAllProducts();
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+    let products = await _productRepo.getAllProducts();
   // check for any query parameters
   const { searchedName } = request.query;
   // if there is a query parameter
@@ -26,18 +31,29 @@ exports.Index = async function (request, response) {
     response.render("productsIndex", {
       title: "Express Billing - Products",
       products: products,
+      reqInfo: reqInfo,
       contributors: contributors,
     });
   } else {
     response.render("productsIndex", {
       title: "Express Billing - Products",
       products: [],
+      reqInfo: reqInfo,
       contributors: contributors,
     });
   }
+}
+else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };
 
 exports.Detail = async function (request, response) {
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+
   const productId = request.params.id;
   let product = await _productRepo.getProductById(productId);
   let products = await _productRepo.getAllProducts();
@@ -46,6 +62,7 @@ exports.Detail = async function (request, response) {
     response.render("productDetails", {
       title: "Express Billing - " + product.name,
       products: products,
+      reqInfo: reqInfo,
       productId: request.params.id,
       layout: "./layouts/full-width",
       contributors: contributors,
@@ -56,24 +73,45 @@ exports.Detail = async function (request, response) {
     response.render("404", {
       title: `Express Billing Page Not Found`,
       contributors: contributors,
+      reqInfo: reqInfo,
     });
   }
+}
+else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };
 
 // Handle product form GET request
 exports.Create = async function (request, response) {
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+
   response.render("productCreate", {
     title: "Create Product",
     errorMessage: "",
     product_id: null,
     product: {},
+    reqInfo: reqInfo,
     contributors: contributors,
   });
+}
+else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };
 
 // Handle product form GET request
 exports.CreateProduct = async function (request, response) {
   // instantiate a new product object populated with form data
+  
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+
   let tempProductObj = new Product({
     name: request.body.name,
     code: request.body.code,
@@ -93,14 +131,23 @@ exports.CreateProduct = async function (request, response) {
       title: "Create Product",
       product: responseObj.obj,
       contributors: contributors,
+      reqInfo: reqInfo,
       errorMessage: responseObj.errorMsg,
     });
   }
+}
+else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };
 
 // Handle product form delete request
 exports.DeleteProductById = async function (request, response) {
-  const productId = request.params.id;
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+    const productId = request.params.id;
   let deletedProduct = await _productRepo.deleteProductById(productId);
   let products = await _productRepo.getAllProducts();
 
@@ -113,29 +160,47 @@ exports.DeleteProductById = async function (request, response) {
       title: "Express Billing - Products",
       products: products,
       errorMessage: "Error.  Unable to Delete",
+      reqInfo: reqInfo,
       contributors: contributors,
     });
   }
+}
+else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };
 
 
 // Handle edit product form GET request
 exports.Edit = async function (request, response) {
-  const productId = request.params.id;
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+    const productId = request.params.id;
+
   let product = await _productRepo.getProductById(productId);
   response.render("productForm", {
     title: "Express Billing - " + product.name,
     errorMessage: "",
     productId: request.params.id,
     products: product,
+    reqInfo: reqInfo,
     layout: "./layouts/full-width",
     contributors: contributors,
   });
+}else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };
 
 // Handle product edit form submission
 exports.EditProduct = async function (request, response) {
-  const productId = request.body.productId;
+  let reqInfo = RequestService.reqHelper(request, ["Admin"]);
+  if (reqInfo.rolePermitted) {
+    const productId = request.body.productId;
 
   let tempProductObj = new Product({
     name: request.body.name,
@@ -160,8 +225,15 @@ exports.EditProduct = async function (request, response) {
       productId: request.params.id,
       products: product,
       layout: "./layouts/full-width",
+      reqInfo: reqInfo,
       contributors: contributors,
       errorMessage: responseObj.errorMsg,
     });
   }
+}
+else {
+  response.redirect(
+    "/user/login?errorMessage=You must be logged in to view this page."
+  );
+}
 };

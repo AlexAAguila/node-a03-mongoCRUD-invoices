@@ -1,11 +1,18 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 // create a schema
 const clientSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
-      required: true,
+      unique: true,
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
     },
     code: {
       type: String,
@@ -16,14 +23,21 @@ const clientSchema = new mongoose.Schema(
       required:true,
     },
     // company: String,
-    email: {
+    // email: {
+    //   type: String,
+    //   required: true,
+    // },
+    password: {
       type: String,
-      required: true,
+    },
+    roles: {
+      type: Array,
     },
   },
   { collection: "clients" }
 );
-
+// Add passport-local-mongoose to our Schema
+clientSchema.plugin(passportLocalMongoose);
 // create a model
 const Client = mongoose.model("Client", clientSchema);
 

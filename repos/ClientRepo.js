@@ -81,7 +81,6 @@ class ClientRepo {
     try {
       console.log(`getting client ${clientId} from Database`);
       const clientDoc = await this.getClientById(clientId);
-      console.log(clientDoc);
       if (!clientDoc) {
         // if client does not exist send back false
         console.error("error in retrieving client");
@@ -114,6 +113,40 @@ class ClientRepo {
       return false;
     }
   }
+
+
+  async getUserByEmail(email) {
+    let user = await Client.findOne({ email: email });
+    if (user) {
+      const response = { obj: user, errorMessage: "" };
+      return response;
+    } else {
+      return null;
+    }
+  }
+
+  async getUserByUsername(username) {
+    let user = await Client.findOne(
+      { username: username },
+      { _id: 1, username: 1, email: 1, firstName: 1, lastName: 1, code: 1, company: 1 }
+    );
+    if (user) {
+      const response = { user: user, errorMessage: "" };
+      return response;
+    } else {
+      return null;
+    }
+  }
+  
+  async getRolesByUsername(username) {
+    let user = await Client.findOne({ username: username }, { _id: 0, roles: 1 });
+    if (user.roles) {
+      return user.roles;
+    } else {
+      return [];
+    }
+  }
+
 }
 
 module.exports = ClientRepo;

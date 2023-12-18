@@ -7,6 +7,7 @@ const clientsRouter = express.Router();
 
 // Import Action methods from controller
 const{ClientsIndex,CreateClientForm,AddClient,ClientDetails,UpdateClientForm,UpdateClient,DeleteClient} = require("../controllers/ClientController.js");
+const ClientController = require("../controllers/ClientController.js");
 
 // Define routes
 
@@ -25,5 +26,27 @@ clientsRouter.post("/:clientId/edit",UpdateClient);
 // Get route for deleting a client's details
 clientsRouter.get("/:clientId/delete",DeleteClient);
 
+// GET register page
+clientsRouter.get("/user/register", ClientController.Register);
+
+// Handle register form submission
+clientsRouter.post("/user/register", ClientController.RegisterUser);
+
+// GET login page
+clientsRouter.get("/user/login", ClientController.Login);
+// Handle login form submission
+clientsRouter.post("/user/login", ClientController.LoginUser);
+
+// GET logout
+clientsRouter.get("/user/logout", ClientController.Logout);
+
+// GET profile page
+clientsRouter.get("/user/profile", ClientController.Profile);
+
+
+clientsRouter.get("/:clientId/profile-edit",ClientController.UpdateProfileForm);
+// Post route for updating a client's details
+clientsRouter.post("/:clientId/profile-edit",ClientController.UpdateProfile);
+// Get route for deleting a client's details
 // Export the router
 module.exports = clientsRouter;

@@ -20,7 +20,7 @@
             <tbody>
                 <% clients.forEach((client) => { %>
                     <tr>
-                        <td><a href="/clients/<%= client.id %>" class="text-decoration-none"><%= client.name %></a></td>
+                        <td><a href="/clients/<%= client.id %>" class="text-decoration-none"><%= client.firstName %> <%= client.lastName %></a></td>
                         <td class="text-end">
                             <a href="/clients/<%= client.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
                         </td>

@@ -21,9 +21,9 @@
   <div class="mid-container">
     <section>
       <div class="title">BILL TO:</div>
-      <div><%= invoice.client.name %></div>
+      <div><%= invoice.client.firstName %> <%= invoice.client.lastName %></div>
       <div><%= invoice.client.company %></div>
-      <div><%= invoice.client.email %></div>
+      <div><%= invoice.client.username %></div>
     </section>
 
     <section class="mid-container">
@@ -82,4 +82,14 @@
       <div>$<%= grandTotal.toFixed(2) %></div>
     </div>
   </div>
+  <% if
+      (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) { %>
+        <%if (invoice.paid){ %>
+          <a href="<%= invoice.id %>/paid" class="btn btn-outline-info">Mark as unpaid</a>
+          <% } else { %>
+            <a href="<%= invoice.id %>/paid" class="btn btn-outline-info">Mark as paid</a>       
+          
+            <% } %>
+        <% } %>
+
 </div>

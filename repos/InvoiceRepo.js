@@ -15,6 +15,18 @@ class InvoiceRepo {
       throw new Error("Error fetching invoices: " + error.message);
     }
   }
+  async getUserInvoices(loggedInUserId) {
+    try {
+      const invoices = await Invoice.find({ client: loggedInUserId })
+        .populate("client") // Populate the client details if necessary
+        .sort({ invoiceNumber: 1 });
+      return invoices;
+    } catch (error) {
+      throw new Error("Error fetching invoices: " + error.message);
+    }
+  }
+  
+  
 
   async getAllClients() {
     try {
@@ -57,6 +69,7 @@ class InvoiceRepo {
       const invoice = await Invoice.findById(id)
         .populate("client") // Populate the 'client' field with client details
         .populate("products") // Populate the 'products' array with product details
+        .populate("quantities")
         .exec();
 
       return invoice;
@@ -92,6 +105,23 @@ async getInvoicebyId(searchedId) {
   } catch (error) {
     console.error("error resolving search", error.message);
     return false;
+  }
+}
+
+async updateInvoicePaid(searchedId){
+  try{
+    const invoiceDoc = await this.fetchInvoiceById(searchedId)
+
+    if (!invoiceDoc){
+      console.error("error in retrieving invoice")
+      return false;
+    }
+    invoiceDoc.paid = !invoiceDoc.paid
+    await invoiceDoc.save();
+    return true;
+  } catch (error){
+    console.error("error updating client:", error.message);
+      return false;
   }
 }
 

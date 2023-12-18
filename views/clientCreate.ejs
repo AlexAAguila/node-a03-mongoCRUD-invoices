@@ -7,9 +7,20 @@
         class="form-control"
         type="text"
         id="client-name"
-        name="clientName"
+        name="firstName"
         required
-        value="<%= customer.name !== undefined ? customer.name : '' %>"
+        value="<%= customer.firstName !== undefined ? customer.firstName : '' %>"
+      />
+    </div>
+    <div class="form-group">
+      <label for="client-name">Name:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="client-lname"
+        name="lastName"
+        required
+        value="<%= customer.lastName !== undefined ? customer.lastName : '' %>"
       />
     </div>
     <div class="form-group">
@@ -42,9 +53,19 @@
         id="client-email"
         name="clientEmail"
         required
-        value="<%= customer.email !== undefined ? customer.email : '' %>"
+        value="<%= customer.username !== undefined ? customer.username : '' %>"
       />
     </div>
+    <% if (reqInfo.roles.includes("Admin")) { %>
+
+      <label for="client">Roles:</label>
+      <select class="form-control" id="roles" name="roles" required>
+        <option value="">Select a Role</option>
+        <% clients.forEach(client => { %>
+        <option value="<%= client.roles %>"><%= client.name %></option>
+        <% }); %>
+      </select>
+    <% } %>
     <button class="btn btn-primary" type="submit" value="Submit">
       <%= title.includes("Update") ? "Update" : "Create" %>
     </button>

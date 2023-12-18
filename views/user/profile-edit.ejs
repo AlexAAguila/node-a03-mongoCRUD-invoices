@@ -1,0 +1,68 @@
+<div>
+    <h3><%= customer.firstName %> <%= customer.lastName %></h3>
+    <form id="client-create" action="<%= title.includes("Update") ? `/${customer._id}/profile-edit` : "/clients/create" %>" method="post">
+      <div class="form-group">
+        <label for="client-name">Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="client-name"
+          name="firstName"
+          required
+          value="<%= customer.firstName !== undefined ? customer.firstName : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="client-name">Name:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="client-lname"
+          name="lastName"
+          required
+          value="<%= customer.lastName !== undefined ? customer.lastName : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="client-code">Short Code:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="client-code"
+          name="clientCode"
+          required
+          value="<%= customer.code !== undefined ? customer.code : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="client-company">Company:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="client-company"
+          name="clientCompany"
+          required
+          value="<%= customer.company !== undefined ? customer.company : '' %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="client-email">Email:</label>
+        <input
+          class="form-control"
+          type="email"
+          id="client-email"
+          name="clientEmail"
+          required
+          value="<%= customer.username !== undefined ? customer.username : '' %>"
+        />
+      </div>
+    
+      <button class="btn btn-primary" type="submit" value="Submit">
+        <%= title.includes("Update") ? "Update" : "Create" %>
+      </button>
+    </form>
+  </div>
+  <% if (message) { %>
+    <p><%= message %></p>
+  <% } %>
+  

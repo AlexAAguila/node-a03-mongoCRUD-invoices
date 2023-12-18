@@ -19,6 +19,7 @@ invoicesRouter.post("/create", InvoiceController.createInvoice);
 
 // show individual product details
 invoicesRouter.get("/:id", InvoiceController.Detail);
+invoicesRouter.get("/:id/paid", InvoiceController.Paid);
 invoicesRouter.get("/:id/delete", InvoiceController.DeleteInvoiceById);
 
 
