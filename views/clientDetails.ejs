@@ -2,7 +2,7 @@
 <p><%= message %></p>
 <% } %>
 <div>
-  <h2><%= customer.name %>'s details</h2>
+  <h2><%= customer.firstName %> <%= customer.lastName %>'s details</h2>
   <div>
     <table class="table">
       <tbody>
@@ -21,6 +21,10 @@
         <tr>
           <th>Email</th>
           <td><%= customer.username || 'N/A' %></td>
+        </tr>
+        <tr>
+          <th>Role</th>
+          <td><%= customer.roles || 'N/A' %></td>
         </tr>
       </tbody>
     </table>

@@ -9,8 +9,7 @@
   },
   "author": "Aditya",
   "contributors": [
-    "Alex",
-    "Nigel"
+    "Alex"  
   ],
   "license": "ISC",
   "devDependencies": {

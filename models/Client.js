@@ -32,6 +32,7 @@ const clientSchema = new mongoose.Schema(
     },
     roles: {
       type: Array,
+      default: ["None"]
     },
   },
   { collection: "clients" }

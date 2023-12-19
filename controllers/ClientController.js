@@ -52,12 +52,15 @@ else {
 exports.CreateClientForm = (req, res) => {
   let reqInfo = RequestService.reqHelper(req, ["Admin"]);
   if (reqInfo.rolePermitted) {
+    const rolesAvailable = ["Admin", "Manager", "None"];
+
     res.render("clientCreate", {
     title: "Express Billing Create Client",
     contributors: contributors,
     customer: {},
     reqInfo: reqInfo,
     message: "",
+    rolesAvailable: rolesAvailable,
   });
 }
 else {
@@ -73,10 +76,12 @@ exports.AddClient = async (req, res) => {
   if (reqInfo.rolePermitted) {
     // get client data from form and create an object
   const newClient = {
-    name: req.body.clientName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     code: req.body.clientCode,
     company: req.body.clientCompany,
-    email: req.body.clientEmail,
+    username: req.body.clientEmail,
+    roles: req.body.roles
   };
   // send this data to repository to add a new client
   const response = await _clientRepo.createClient(newClient);
@@ -156,6 +161,7 @@ exports.UpdateClientForm = async function (req, res) {
   let reqInfo = RequestService.reqHelper(req, ["Admin", "Manager"]);
   if (reqInfo.rolePermitted) {
   // retrieve client id from url params
+  const rolesAvailable = ["Admin", "Manager", "None"];
   const clientId = req.params.clientId;
   // retrieve client's records
   console.log("retrieving client's records!");
@@ -169,6 +175,7 @@ exports.UpdateClientForm = async function (req, res) {
       customer: client,
       reqInfo: reqInfo,
       message: "",
+      rolesAvailable: rolesAvailable,
     });
   } else {
     // render 404 page
@@ -203,6 +210,7 @@ exports.UpdateClient = async function (req, res) {
     code: req.body.clientCode,
     company: req.body.clientCompany,
     username: req.body.clientEmail,
+    roles: req.body.roles
   };
   // send the object to repo update client method
   console.log("sending the data to repo for client data update");

@@ -2,7 +2,7 @@
   <h3>Client</h3>
   <form id="client-create" action="<%= title.includes("Update") ? `/clients/${customer.id}/edit` : "/clients/create" %>" method="post">
     <div class="form-group">
-      <label for="client-name">Name:</label>
+      <label for="client-name">First Name:</label>
       <input
         class="form-control"
         type="text"
@@ -13,7 +13,7 @@
       />
     </div>
     <div class="form-group">
-      <label for="client-name">Name:</label>
+      <label for="client-name">Last Name:</label>
       <input
         class="form-control"
         type="text"
@@ -56,15 +56,20 @@
         value="<%= customer.username !== undefined ? customer.username : '' %>"
       />
     </div>
+    
     <% if (reqInfo.roles.includes("Admin")) { %>
-
+   
       <label for="client">Roles:</label>
       <select class="form-control" id="roles" name="roles" required>
         <option value="">Select a Role</option>
-        <% clients.forEach(client => { %>
-        <option value="<%= client.roles %>"><%= client.name %></option>
-        <% }); %>
+        <% for (let i = 0; i < rolesAvailable.length; i++) { %>
+          <option value="<%= rolesAvailable[i] %>" 
+            <% if (customer.roles && customer.roles.includes(rolesAvailable[i])) { %> selected <% } %>
+          ><%= rolesAvailable[i] %></option>
+        <% } %>
       </select>
+      
+      
     <% } %>
     <button class="btn btn-primary" type="submit" value="Submit">
       <%= title.includes("Update") ? "Update" : "Create" %>

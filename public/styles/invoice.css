@@ -64,3 +64,22 @@
   flex-direction: row;
   margin-top: 50px;
 }
+
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+@media print {
+  #nav-bar {
+    display: none !important;
+  }
+}
+
+@media print {
+  footer#site-footer {
+    display: none !important;
+  }
+}

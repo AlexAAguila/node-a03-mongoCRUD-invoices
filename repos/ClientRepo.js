@@ -128,7 +128,7 @@ class ClientRepo {
   async getUserByUsername(username) {
     let user = await Client.findOne(
       { username: username },
-      { _id: 1, username: 1, email: 1, firstName: 1, lastName: 1, code: 1, company: 1 }
+      { _id: 1, username: 1, firstName: 1, lastName: 1, code: 1, company: 1, roles: 1 }
     );
     if (user) {
       const response = { user: user, errorMessage: "" };
