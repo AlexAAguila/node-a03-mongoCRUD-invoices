@@ -26,6 +26,10 @@
       <input class="form-control" id="dueDate" name="dueDate" type="Date"
       required value=<%= invoice.dueDate ? invoice.dueDate : '' %> >
     </div>
+    <div class='form-group'>
+      <label for='reuseBottle'>Are you bringing back a previously bought Alixir bottle to Refill?</label>
+      <input type='checkbox' id='reuseBottle' name='reuseBottle' value='false'>
+    </div>
     <div class="row">
       <div class="col">
         <label for="products">Product:</label>

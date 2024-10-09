@@ -26,8 +26,16 @@
       </tr>
     </tbody>
   </table>
+  <%if (reqInfo.authenticated) { %>
+
+    <% if (reqInfo.roles.includes("Admin")) { %>
   <a href="<%= products[i].id %>/edit"
     ><button class="btn btn-outline-info btn-sml">Update Product</button></a
+  >
+  <% } %>
+  <% } %>
+  <a href="<%= products[i].id %>/edit"
+    ><button class="btn btn-outline-info btn-sml">Make an order</button></a
   >
   <% } %> <% } %>
 </div>

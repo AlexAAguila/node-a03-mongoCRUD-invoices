@@ -23,7 +23,7 @@
         value="<%= customer.lastName !== undefined ? customer.lastName : '' %>"
       />
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="client-code">Short Code:</label>
       <input
         class="form-control"
@@ -44,7 +44,7 @@
         required
         value="<%= customer.company !== undefined ? customer.company : '' %>"
       />
-    </div>
+    </div> -->
     <div class="form-group">
       <label for="client-email">Email:</label>
       <input
@@ -52,7 +52,6 @@
         type="email"
         id="client-email"
         name="clientEmail"
-        required
         value="<%= customer.username !== undefined ? customer.username : '' %>"
       />
     </div>
@@ -61,7 +60,7 @@
    
       <label for="client">Roles:</label>
       <select class="form-control" id="roles" name="roles" required>
-        <option value="">Select a Role</option>
+        <option value="None">Select a Role</option>
         <% for (let i = 0; i < rolesAvailable.length; i++) { %>
           <option value="<%= rolesAvailable[i] %>" 
             <% if (customer.roles && customer.roles.includes(rolesAvailable[i])) { %> selected <% } %>

@@ -8,16 +8,26 @@
     </div>
   </div>
 </form>
+<%if (reqInfo.authenticated) { %>
 
+  <% if (reqInfo.roles.includes("Admin")) { %>
     <a href="/products/create"
       ><button class="btn btn-primary btn-sm" id="add-product-btn">Add a new Product</button></a
     >
+    <% } %>
+<% } %>
+
   <table class="table">
     <tbody>
       <% for (let i = 0; i < products.length; i++ ) {%>
           <tr>
             <td><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/products/<%= products[i].id %>"><%= products[i].name %></a></td>
+            <%if (reqInfo.authenticated) { %>
+
+              <% if (reqInfo.roles.includes("Admin")) { %>
             <td class="text-end"><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/products/<%= products[i].id %>/delete"><button type="button" class="btn btn-danger btn-sm">Delete</button></a</td>
+              <% } %>
+              <% } %>
           </tr>
       <% } %>
     </tbody>

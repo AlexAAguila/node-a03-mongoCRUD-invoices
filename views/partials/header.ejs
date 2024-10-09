@@ -1,13 +1,13 @@
 <nav class="nav d-flex justify-content-center mt-3 mb-4 no-print" id="nav-bar">
   <a class="nav-link" href="/">Home</a>
-  
+  <a class="nav-link" href="/products">Products</a>
+
 
   <%if (reqInfo.authenticated) { %>
       <a class="nav-link" href="/user/profile">My Profile </a>
-      <% if (reqInfo.roles.includes("Admin")) { %>
-        <a class="nav-link" href="/products">Products</a>
-       <% } %> <% if
-      (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) {
+      <!-- <% if (reqInfo.roles.includes("Admin")) { %>
+       <% } %>  -->
+       <% if (reqInfo.roles.includes("Admin") || reqInfo.roles.includes("Manager")) {
       %> <a class="nav-link" href="/clients">Clients</a>  
        <% } %> 
       <a class="nav-link" href="/invoices">Invoices</a>

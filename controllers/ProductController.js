@@ -13,7 +13,7 @@ const contributors = packageReader.getContributors();
 
 exports.Index = async function (request, response) {
   let reqInfo = RequestService.reqHelper(request, ["Admin"]);
-  if (reqInfo.rolePermitted) {
+//  if (reqInfo.rolePermitted) {
     let products = await _productRepo.getAllProducts();
   // check for any query parameters
   const { searchedName } = request.query;
@@ -42,17 +42,17 @@ exports.Index = async function (request, response) {
       contributors: contributors,
     });
   }
-}
-else {
-  response.redirect(
-    "/user/login?errorMessage=You must be logged in to view this page."
-  );
-}
+//}
+// else {
+//   response.redirect(
+//     "/user/login?errorMessage=You must be logged in to view this page."
+//   );
+// }
 };
 
 exports.Detail = async function (request, response) {
   let reqInfo = RequestService.reqHelper(request, ["Admin"]);
-  if (reqInfo.rolePermitted) {
+ // if (reqInfo.rolePermitted) {
 
   const productId = request.params.id;
   let product = await _productRepo.getProductById(productId);
@@ -76,12 +76,12 @@ exports.Detail = async function (request, response) {
       reqInfo: reqInfo,
     });
   }
-}
-else {
-  response.redirect(
-    "/user/login?errorMessage=You must be logged in to view this page."
-  );
-}
+// }
+// else {
+//   response.redirect(
+//     "/user/login?errorMessage=You must be logged in to view this page."
+//   );
+// }
 };
 
 // Handle product form GET request

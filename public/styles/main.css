@@ -191,5 +191,24 @@ select {
   height: 300px;
 }
 
+.welcome-title {
+  font-size: 35px;
+}
+
+.description {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
 
 
+
+@media only screen and (max-width: 600px) {
+  .welcome-title {
+    font-size: 28px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+}

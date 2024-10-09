@@ -14,14 +14,14 @@ const clientSchema = new mongoose.Schema(
     lastName: {
       type: String,
     },
-    code: {
-      type: String,
-      required: true,
-    },
-    company:{
-      type:String,
-      required:true,
-    },
+    // code: {
+    //   type: String,
+    //   required: true,
+    // },
+    // company:{
+    //   type:String,
+    //   required:true,
+    // },
     // company: String,
     // email: {
     //   type: String,

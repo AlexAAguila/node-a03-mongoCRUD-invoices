@@ -38,6 +38,10 @@ const invoiceSchema = new mongoose.Schema(
       required: true,
       default: false
     },
+    reuseBottle: {
+      type: Boolean,
+      default: false
+    },
   },
   { collection: "invoice" }
 );

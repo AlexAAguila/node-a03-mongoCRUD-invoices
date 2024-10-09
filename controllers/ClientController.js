@@ -78,8 +78,8 @@ exports.AddClient = async (req, res) => {
   const newClient = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    code: req.body.clientCode,
-    company: req.body.clientCompany,
+    // code: req.body.clientCode,
+    // company: req.body.clientCompany,
     username: req.body.clientEmail,
     roles: req.body.roles
   };
@@ -241,14 +241,18 @@ exports.DeleteClient = async function (req, res) {
   let reqInfo = RequestService.reqHelper(req, ["Admin", "Manager"]);
   if (reqInfo.authenticated) {
   // retrieve client id from url params
+
   const clientId = req.params.clientId;
+  const client = await _clientRepo.getClientById(clientId);
+  const clientName = `${client.firstName} ${client.lastName}`;
+  console.log(clientName);
   // send for deletion
-  const response = await _clientRepo.deleteClient(clientId);
+  const response = await _clientRepo.deleteClient(clientId, clientName);
   // get clients from repo
   const clients = await _clientRepo.getAllClients();
   // if deletion was successful, we get a response object
   if (response) {
-    console.log(`client ${clientId} deleted successfully!`);
+    console.log(`client ${clientName} deleted successfully!`);
     // render the Clients Index page
     res.status(200).render("clientsIndex", {
       title: "Express Billing Clients Home",

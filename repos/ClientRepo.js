@@ -102,12 +102,12 @@ class ClientRepo {
   }
 
   // method for deleting a client
-  async deleteClient(id) {
+  async deleteClient(id, name) {
     try {
       console.log(`deleting client ${id}`);
       const deletedClient = await Client.findByIdAndDelete(id);
       console.log(`deleted client ${id}!`);
-      return `Client ${deletedClient.name} deleted successfully!`;
+      return `Client ${name} deleted successfully!`;
     } catch (error) {
       console.error("Error while deleting:", error.message);
       return false;
